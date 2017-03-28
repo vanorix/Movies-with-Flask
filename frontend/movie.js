@@ -24,9 +24,11 @@ var findMovie = function(name, page){
 
 var post = function (oData, postURL) {
   var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance 
-  xmlhttp.open("POST", postURL);
-  //xmlhttp.setRequestHeader("Content-Type", "application/json");
-  xmlhttp.send(oData);
+  
+  xmlhttp.open("POST", postURL, true);
+  xmlhttp.setRequestHeader("content-type", "application/json");
+  xmlhttp.setRequestHeader("cache-control", "no-cache");
+  xmlhttp.send(JSON.stringify(oData));
   xmlhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
       console.log(JSON.parse(this.responseText));
@@ -82,6 +84,8 @@ var listMovies = function(data){
         poster.setAttribute('src', posterUrl + data.results[idx].poster_path);
         vote_avg.innerHTML = data.results[idx].vote_average;
 
+        saveToCache(data.results[idx]); //Saving to local database
+
         movieContainer.appendChild(title);
         movieContainer.appendChild(release_date);
         movieContainer.appendChild(poster);
@@ -93,7 +97,7 @@ var listMovies = function(data){
     listElement.appendChild(gridContainer);
     list.appendChild(listElement);
     container.appendChild(list);
-    saveToCache(data.results[0]);
+    
 };
 
 var saveToCache = function(moviesData){

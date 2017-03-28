@@ -19,7 +19,7 @@ def index():
     if q == None:
       if 'poster_path' in data:
         posterUrl = "http://image.tmdb.org/t/p/w150" + data["poster_path"]
-        localUrl = os.path.abspath(os.path.join(os.getcwd(), os.pardir)) + "/frontend/static/images/" + data["id"] + ".jpg"
+        localUrl = os.path.abspath(os.path.join(os.getcwd(), os.pardir)) + "/frontend/static/images/" +  str(data["id"]) + ".jpg"
         urllib.request.urlretrieve(posterUrl, localUrl)
         movie = Movie(data["id"], data["title"], data["overview"], data["poster_path"])
       else:
