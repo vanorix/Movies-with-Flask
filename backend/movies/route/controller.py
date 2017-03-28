@@ -1,6 +1,7 @@
 from flask import Blueprint
 from flask import Flask, request, jsonify
 from flask_cors import cross_origin
+from random import randint
 from movies.models.models import db, Movie, Review
 import urllib.request
 import os
@@ -37,7 +38,9 @@ def review():
       print(data)
       q = Movie.query.filter_by(name=data["movie_name"]).first()
       
-      review = Review(data["id"], q.id, data["movie_name"], data["description"], data["rating"], data["user"], data["device_id"])
+      reviewID = randint(1, 100)
+
+      review = Review(reviewID, q.id, data["movie_name"], data["description"], data["rating"], data["user"], "deviceID")
       
       db.session.add(review)
       db.session.commit()

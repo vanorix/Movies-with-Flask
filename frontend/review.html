@@ -4,12 +4,27 @@
         crossorigin="anonymous">
   </head>
   <body>
+    <h1>Write Your Review</h1>
     <form id="upload">
       <div class="form-group">
-        <label for="name">Name</label>
-        <input type="text" class="form-control" id="name"   placeholder="User Name">
-        <label for="review">Review</label>
+        <label for="name">Movie Name:</label>
+        <input type="text" class="form-control" id="title"   placeholder="Terminator">
+        </br>
+        <label for="name">User:</label>
+        <input type="text" class="form-control" id="username"   placeholder="User Name">
+        </br>
+        <label for="review">Review:</label>
         <input type="text" class="form-control" id="review" placeholder="Your review">
+        </br>
+        <label for="name">Rating:</label>
+        <select class="form-control" id="rating">
+          <option selected disabled>Choose a Rating</option>
+          <option value="1">1 Stars</option>
+          <option value="2">2 Stars</option>
+          <option value="3">3 Stars</option>
+          <option value="4">4 Stars</option>
+          <option value="5">5 Stars</option>
+        </select>
       </div>
       <button id="submit" type="submit">Submit</button>
     </form>

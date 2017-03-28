@@ -22,14 +22,17 @@ var findMovie = function(name, page){
     xhr.send(data);
 }
 
-var post = function (oData) {
+var post = function (oData, postURL) {
   var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance 
-  xmlhttp.open("POST", cacheUrl, true);
+  xmlhttp.open("POST", postURL);
   xmlhttp.setRequestHeader("Content-Type", "application/json");
   xmlhttp.send(oData);
   xmlhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
       console.log(JSON.parse(this.responseText));
+    }
+    if(this.status == 400){
+        console.log(this.responseText)
     }
   };
 }
@@ -99,7 +102,7 @@ var saveToCache = function(moviesData){
     // data.append('name', name.value);
     // data.append('review', review.value);
 
-    post(moviesData);
+    post(moviesData, cacheUrl);
     console.log(moviesData);
 }
 
