@@ -54,7 +54,7 @@ def findMovie():
     results = Movie.query.filter(Movie.name.startswith(moviename)).count()
     if results>0:
         movie = Movie.query.filter(Movie.name.startswith(moviename)).first()
-        response = jsonify(movie.serialize())
+        response = jsonify(movie.as_dict())
         return response
     else:
         return 404

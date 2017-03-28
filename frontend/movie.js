@@ -25,7 +25,7 @@ var findMovie = function(name, page){
 var post = function (oData, postURL) {
   var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance 
   xmlhttp.open("POST", postURL);
-  xmlhttp.setRequestHeader("Content-Type", "application/json");
+  //xmlhttp.setRequestHeader("Content-Type", "application/json");
   xmlhttp.send(oData);
   xmlhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
@@ -97,14 +97,9 @@ var listMovies = function(data){
 };
 
 var saveToCache = function(moviesData){
-    // var data = new FormData();
-    
-    // data.append('name', name.value);
-    // data.append('review', review.value);
-
     post(moviesData, cacheUrl);
     console.log(moviesData);
-}
+};
 
 var form = document.getElementById('create');
 form.onsubmit = function(evt) {

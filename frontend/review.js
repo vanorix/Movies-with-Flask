@@ -16,7 +16,7 @@ var findMovie = function(name){
 
 var post = function (oData) {
   var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance 
-  xmlhttp.open("POST", url, true);
+  xmlhttp.open("POST", url, false);
   //xmlhttp.setRequestHeader("Content-Type", "multipart/form-data");
   xmlhttp.send(oData);
   xmlhttp.onreadystatechange = function () {

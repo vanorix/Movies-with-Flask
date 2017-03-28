@@ -16,13 +16,8 @@ class Movie(db.Model):
     self.description = des
     self.poster = pos
 
-  def serialize(self):
-    return {
-            'id' : self.id,
-            'name' : self.name,
-            'description' : self.description,
-            'poster' : self.poster
-    }
+  def as_dict(self):
+    return {c.name: getattr(self, c.name) for c in self.__table__.columns}
 
 class Review(db.Model):
   __tablename__ = 'review'
@@ -30,9 +25,9 @@ class Review(db.Model):
   movie_id = db.Column(db.Integer, db.ForeignKey('movie.id'))
   title = db.Column(db.String(64))
   description = db.Column(db.String(120))
-  rating = db.column(db.String(120))
-  user = db.column(db.String(120))
-  deviceId = db.column(db.String(120))
+  rating = db.column(db.Integer)
+  user = db.column(db.String(64))
+  deviceId = db.column(db.Integer)
 
   def __init__(self, id, mid, t, d, r, u, DI):
     self.id = id
@@ -43,13 +38,5 @@ class Review(db.Model):
     self.user = u
     self.deviceId = DI
   
-  def serialize(self):
-    return {
-            'id' : self.id,
-            'movie_id' : self.movie_id,
-            'title' : self.title,
-            'description' : self.description,
-            'rating' : self.rating,
-            'user' : self.user,
-            'deviceId' : self.deviceId
-    }
+  def as_dict(self):
+    return {c.name: getattr(self, c.name) for c in self.__table__.columns}
