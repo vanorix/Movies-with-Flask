@@ -47,3 +47,14 @@ def review():
       return "SAVED!"
     else:
       return "EXISTS!"
+
+@main.route('/find', methods=['GET'])
+def findMovie():
+    moviename = request.args.get('name')
+    results = Movie.query.filter(Movie.name.startswith(moviename)).count()
+    if results>0:
+        movie = Movie.query.filter(Movie.name.startswith(moviename)).first()
+        response = jsonify(movie.serialize())
+        return response
+    else:
+        return 404

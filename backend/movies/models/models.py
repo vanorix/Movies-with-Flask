@@ -16,6 +16,14 @@ class Movie(db.Model):
     self.description = des
     self.poster = pos
 
+  def serialize(self):
+    return {
+            'id' : self.id,
+            'name' : self.name,
+            'description' : self.description,
+            'poster' : self.poster
+    }
+
 class Review(db.Model):
   __tablename__ = 'review'
   id = db.Column(db.Integer, primary_key=True)
@@ -34,3 +42,14 @@ class Review(db.Model):
     self.rating = r
     self.user = u
     self.deviceId = DI
+  
+  def serialize(self):
+    return {
+            'id' : self.id,
+            'movie_id' : self.movie_id,
+            'title' : self.title,
+            'description' : self.description,
+            'rating' : self.rating,
+            'user' : self.user,
+            'deviceId' : self.deviceId
+    }

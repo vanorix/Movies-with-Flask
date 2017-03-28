@@ -1,5 +1,18 @@
 var xmlhttp = new XMLHttpRequest();
 var url = "http://localhost:5000/reviews/review";
+var findMovieURL = "http://localhost:5000/reviews/find?name=";
+
+var findMovie = function(name){
+  var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance 
+  xmlhttp.open("GET", findMovieURL + name, true);
+  //xmlhttp.setRequestHeader("Content-Type", "multipart/form-data");
+  xmlhttp.send();
+  xmlhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      console.log(JSON.parse(this.responseText));
+    }
+  };
+}
 
 var post = function (oData) {
   var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance 
