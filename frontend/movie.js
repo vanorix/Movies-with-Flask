@@ -4,6 +4,24 @@ var query = "query=";
 var posterUrl = "http://image.tmdb.org/t/p/w150";
 var cacheUrl = "http://localhost:5000/reviews/movies";
 
+//Paging
+var resultPages;
+var currentPage = 1;
+var currentSearch;
+
+//Create Button Elements
+var btnNext = document.createElement('button');
+btnNext.classList.add('btn');
+btnNext.classList.add('btn-primary');
+btnNext.id = 'btnNext';
+btnNext.innerText = 'NEXT'
+
+var btnPrevious = document.createElement('button');
+btnPrevious.classList.add('btn');
+btnPrevious.classList.add('btn-primary');
+btnPrevious.id = 'btnPrevious';
+btnPrevious.innerText = 'PREVIOUS'
+
 var findMovie = function(name, page){
     var data = "{}";
 
@@ -50,7 +68,8 @@ var listMovies = function(data){
     var gridContainer = document.createElement('div');
     gridContainer.id = 'grid';
     gridContainer.classList.add('container-fluid');
-
+    //Listing Movies
+    //****************************************************************** 
     var movieRow = document.createElement('div');
     movieRow.id = 'rowResult';
     movieRow.classList.add('row');
@@ -97,6 +116,33 @@ var listMovies = function(data){
     }
     listElement.appendChild(gridContainer);
     list.appendChild(listElement);
+    //****************************************************************** 
+    
+    //Paging
+    //******************************************************************
+    var lePaging = document.createElement('li');
+    lePaging.classList.add('list-group-item');
+    lePaging.id = 'paging';
+
+    resultPages = data.total_pages;
+
+    if(currentPage == resultPages){
+        btnNext.style.display = 'none';
+    }
+    else if(currentPage == 1){
+        btnPrevious.style.display = 'none';
+    }
+    else {
+        btnNext.style.display = 'inline';
+        btnPrevious.style.display = 'inline';
+    }
+
+    lePaging.appendChild(btnPrevious);
+    lePaging.appendChild(btnNext);
+
+    list.appendChild(lePaging);
+
+    //******************************************************************
     container.appendChild(list);
     
 };
@@ -111,8 +157,26 @@ form.onsubmit = function(evt) {
     evt.preventDefault();
     var name = document.getElementById('name');
     
-    findMovie(name.value, 1);
+    currentSearch = name.value;
+    
+    findMovie(currentSearch, currentPage);
     name.value = '';
+};
+
+
+btnNext.onclick = function(evt){
+    if((currentPage + 1) <= resultPages)
+        currentPage += 1;
+    
+    findMovie(currentSearch, currentPage);
+};
+
+
+btnPrevious.onclick = function(evt){
+    if((currentPage - 1) > 0)
+        currentPage -= 1;
+    
+    findMovie(currentSearch, currentPage);
 };
 
 var clearResults = function(){
