@@ -31,15 +31,16 @@ var post = function (oData, postURL) {
   xmlhttp.send(JSON.stringify(oData));
   xmlhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
-      console.log(JSON.parse(this.responseText));
+      console.log(this.responseText);
     }
     if(this.status == 400){
-        console.log(this.responseText)
+      console.log(this.responseText);
     }
   };
 }
 
 var listMovies = function(data){
+    clearResults();
     var container = document.getElementById('container');
     var list = document.createElement('ul');
     list.classList.add('list-group');
@@ -53,7 +54,7 @@ var listMovies = function(data){
     var movieRow = document.createElement('div');
     movieRow.id = 'rowResult';
     movieRow.classList.add('row');
-    var colIdx = 1;
+    var colIdx = 0;
     for(var idx = 0; idx < data.results.length; ++idx){
 
         if(colIdx == 3){
@@ -65,7 +66,7 @@ var listMovies = function(data){
         }
         
         var movieContainer = document.createElement('div');
-        movieContainer.setAttribute('class', 'col-md-3');
+        movieContainer.setAttribute('class', 'col-md-4');
         // movieContainer.classList.add("col-md-3");
         movieContainer.id = 'movie';
 
@@ -82,9 +83,9 @@ var listMovies = function(data){
         title.innerHTML = data.results[idx].title;
         release_date.innerHTML = data.results[idx].release_date;
         poster.setAttribute('src', posterUrl + data.results[idx].poster_path);
-        vote_avg.innerHTML = data.results[idx].vote_average;
+        vote_avg.innerHTML = data.results[idx].vote_average + ' Stars';
 
-        saveToCache(data.results[idx]); //Saving to local database
+        // saveToCache(data.results[idx]); //Saving to local database
 
         movieContainer.appendChild(title);
         movieContainer.appendChild(release_date);
@@ -112,4 +113,9 @@ form.onsubmit = function(evt) {
     
     findMovie(name.value, 1);
     name.value = '';
+};
+
+var clearResults = function(){
+    var container = document.getElementById('container');
+    container.innerHTML = ' ';
 };

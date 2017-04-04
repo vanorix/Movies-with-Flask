@@ -7,7 +7,7 @@ class Movie(db.Model):
   id = db.Column(db.Integer, primary_key=True)
   name = db.Column(db.String(64))
   description = db.Column(db.String(120))
-  poster = db.column(db.String(120))
+  poster = db.Column(db.String(120))
   review = db.relationship('Review', backref='movie', lazy='dynamic')
 
   def __init__(self, id, nm, des, pos):
@@ -25,9 +25,9 @@ class Review(db.Model):
   movie_id = db.Column(db.Integer, db.ForeignKey('movie.id'))
   title = db.Column(db.String(64))
   description = db.Column(db.String(120))
-  rating = db.column(db.Integer)
-  user = db.column(db.String(64))
-  deviceId = db.column(db.Integer)
+  rating = db.Column(db.Integer)
+  user = db.Column(db.String(64))
+  deviceId = db.Column(db.Integer)
 
   def __init__(self, id, mid, t, d, r, u, DI):
     self.id = id
